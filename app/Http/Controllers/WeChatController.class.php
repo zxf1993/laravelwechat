@@ -26,7 +26,7 @@ class WeChatController extends Controller
         $app->server->push(function($message){
             return "欢迎来到测试环节";
         });
-
+        echo 123;
         return $app->server->serve();
     }
 }
