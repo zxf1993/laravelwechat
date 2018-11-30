@@ -10,6 +10,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -17,10 +18,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        echo "111222";
-    }
-    public function home()
-    {
-        echo "333";
+        $users = DB::select('select * from business_image where id=1', [1]) ;
+        return view('Home.index')->with('data',$users);
+
+        $users_ucenyer=DB::connection('mysql_ucenter')->select('select * from uc_user where id=3',[1]);
+        return view('Home.index')->with('user',$users_ucenyer);
     }
 }

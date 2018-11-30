@@ -53,6 +53,20 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+        'mysql_ucenter' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_UCENTER', '127.0.0.1'),
+            'port' => env('DB_PORT_UCENTER', '3306'),
+            'database' => env('DB_DATABASE_UCENTER', 'forge'),
+            'username' => env('DB_USERNAME_UCENTER', 'forge'),
+            'password' => env('DB_PASSWORD_UCENTER', ''),
+            'unix_socket' => env('DB_SOCKET_UCENTER', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
