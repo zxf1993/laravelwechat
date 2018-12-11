@@ -56,37 +56,16 @@ function updateBatch($tableName = "", $multipleData = [], $connect = '')
     }
 
 }
-
-/*
- * 但文件上传
- */
-function upload(Request $request,$name,$path)
-{
-    if ($request->hasFile($name) && $request->file($name)->isValid()) {
-        $photo        = $request->file($name);
-        dd($photo);
-        $extension    = $photo->extension();
-        $store_result = $photo->storeAs($path, 'test.jpg');//设置图片目录
-        $output       = [
-            'extension'    => $extension,
-            'store_result' => $store_result,
-        ];
-        return $output;
-    }
-    exit('未获取到上传文件或上传过程出错');
-}
-
 /*
  * 多文件上传
  * $path  路径
  * $name  上传那么
  */
-function multiUploadImg(Request $request,$name,$path)
+function multiUploadImg($name,$path)
 {
     // 重组数组，子函数
     function reArrayFiles($file_post)
     {
-
         $file_ary   = [];
         $file_count = count($file_post['name']);
         $file_keys  = array_keys($file_post);

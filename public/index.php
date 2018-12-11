@@ -8,7 +8,7 @@
  */
 
 define('LARAVEL_START', microtime(true));
-define('UPLOAD_URL', '../storage/');
+define('UPLOAD_URL', '../storage/app/');
 
 /*
 |--------------------------------------------------------------------------

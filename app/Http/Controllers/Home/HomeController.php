@@ -23,34 +23,64 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $users = DB::select('select * from business_image where id=1', [1]) ;
-        $users='ererere';
+        $users = DB::select('select * from business_image where id=1', [1]);
+        $users = 'ererere';
         session(['key' => $users]);
-        return view('Home.index')->with('data',$users);
+        return view('Home.index')->with('data', $users);
 
-        $users_ucenyer=DB::connection('mysql_ucenter')->select('select * from uc_user where id=3',[1]);
+        $users_ucenyer = DB::connection('mysql_ucenter')->select('select * from uc_user where id=3', [1]);
 
-        return view('Home.index')->with('user',$users_ucenyer);
+        return view('Home.index')->with('user', $users_ucenyer);
     }
+
     public function test()
     {
-        $data=new BaseModel();
-        $test=new LaravelTest();
-        $users_ucenyer= $test->getAll();
-        $array= [
-            ['name'=>'eee'],
-            ['name'=>'ddd'],
+        $data          = new BaseModel();
+        $test          = new LaravelTest();
+        $users_ucenyer = $test->getAll();
+        $array         = [
+            ['name' => 'eee'],
+            ['name' => 'ddd'],
         ];;
-       addAll('laravel_test',$array);
+        addAll('laravel_test', $array);
 //        $data->addAll('laravel_test',$array,'mysql_ucenter');
 //        $data->updateBatch('laravel_test',$array);
 //        $data->updateBatch('laravel_test',$array,'mysql_ucenter');
     }
-    public function input(Request $request){
-        $path  =$request->all();
+
+    public function input(Request $request)
+    {
+        $path = $request->all();
         return $path;
     }
-    public function show(){
+
+    public function show()
+    {
         return view('Home.show');
+    }
+
+    public function image(Request $request)
+    {
+        $name = 'photo';
+        $path = 'photo';
+        multiUploadImg($name, $path);
+    }
+
+    /*
+ * 但文件上传
+*/
+    function upload(Request $request, $name, $path)
+    {
+        if ($request->hasFile($name) && $request->file($name)->isValid()) {
+            $photo        = $request->file($name);
+            $extension    = $photo->extension();
+            $store_result = $photo->storeAs($path, 'test.jpg');//设置图片目录
+            $output       = [
+                'extension'    => $extension,
+                'store_result' => $store_result,
+            ];
+            return $output;
+        }
+        exit('未获取到上传文件或上传过程出错');
     }
 }
