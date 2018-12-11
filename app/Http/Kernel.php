@@ -59,7 +59,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
         // 根据之前设置的路由规则名（home）对应添加home类名，并指向路由验证路径
-        'home' => \App\Http\Middleware\VerifyHome::class,
+        'home' =>\App\Http\Middleware\VerifyHome::class,
 
     ];
 }
