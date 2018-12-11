@@ -60,12 +60,13 @@ function updateBatch($tableName = "", $multipleData = [], $connect = '')
 /*
  * 但文件上传
  */
-function upload(Request $request)
+function upload(Request $request,$name,$path)
 {
-    if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-        $photo        = $request->file('photo');
+    if ($request->hasFile($name) && $request->file($name)->isValid()) {
+        $photo        = $request->file($name);
+        dd($photo);
         $extension    = $photo->extension();
-        $store_result = $photo->storeAs('photo', 'test.jpg');//设置图片目录
+        $store_result = $photo->storeAs($path, 'test.jpg');//设置图片目录
         $output       = [
             'extension'    => $extension,
             'store_result' => $store_result,
@@ -77,8 +78,10 @@ function upload(Request $request)
 
 /*
  * 多文件上传
+ * $path  路径
+ * $name  上传那么
  */
-function multiUploadImg(Request $request)
+function multiUploadImg(Request $request,$name,$path)
 {
     // 重组数组，子函数
     function reArrayFiles($file_post)
@@ -96,12 +99,12 @@ function multiUploadImg(Request $request)
         return $file_ary;
     }
 
-    $imgFiles      = $_FILES['photo']; // 与前端页面中的 input name=“filesToUpload[]” 相对应
+    $imgFiles      = $_FILES[$name]; // 与前端页面中的 input name=“filesToUpload[]” 相对应
     $uploadedFiles = []; // 返回值
 
     if (!empty($imgFiles)) {
         $img_desc        = reArrayFiles($imgFiles);
-        $destinationPath = UPLOAD_URL . 'app/photo/';
+        $destinationPath = UPLOAD_URL . $path;
         foreach ($img_desc as $img) {
             $savedFile = $destinationPath . date('YmdHis', time()) . mt_rand() . '.' . pathinfo($img['name'], PATHINFO_EXTENSION);
             move_uploaded_file($img['tmp_name'], $savedFile);
