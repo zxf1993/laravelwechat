@@ -21,16 +21,24 @@ use Validator;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = DB::select('select * from business_image where id=1', [1]);
-        $users = 'ererere';
-        session(['key' => $users]);
-        return view('Home.index')->with('data', $users);
+//        $users = DB::select('select * from business_image');
+        $users = DB::table('business_image')->paginate(15);
+//        $prePage=15;
+//        $total=count($users);
+//        $paginator = $this->setPage($request,$users,$prePage,$total);
+//        dd($paginator);
+//        $data =$paginator->toArray()['data'];
 
-        $users_ucenyer = DB::connection('mysql_ucenter')->select('select * from uc_user where id=3', [1]);
 
-        return view('Home.index')->with('user', $users_ucenyer);
+//        $users = 'ererere';
+//        session(['key' => $users]);
+//        return view('Home.index')->with('list', $users);
+//
+//        $users_ucenyer = DB::connection('mysql_ucenter')->select('select * from uc_user where id=3', [1]);
+
+        return view('Home.index')->with('lists', $users);
     }
 
     public function test()
