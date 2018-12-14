@@ -60,6 +60,9 @@ class Kernel extends HttpKernel
 
         // 根据之前设置的路由规则名（home）对应添加home类名，并指向路由验证路径
         'home' =>\App\Http\Middleware\VerifyHome::class,
+        //jwt
+        'cors'=>\APP\Http\Middleware\CORS::class,
+        'JWT.auth'=>\APP\Http\Middleware\authJWT::class
 
     ];
 }

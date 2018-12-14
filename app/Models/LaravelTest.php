@@ -22,4 +22,10 @@ class LaravelTest extends BaseModel
         $db=DB::select($sql);
         return $db;
     }
+    public function getData(){
+        $where[]=['bs_id','=',20];
+        $where[]=['id','<>',1];
+        $users = DB::table('business_image')->select()->where($where)->paginate(15);
+        return $users;
+    }
 }

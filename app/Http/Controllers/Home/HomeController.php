@@ -23,22 +23,22 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-//        $users = DB::select('select * from business_image');
-        $users = DB::table('business_image')->paginate(15);
+        DB::connection()->enableQueryLog();
+//        $users = DB::select('select * from business_image')->paginate(15);
 //        $prePage=15;
 //        $total=count($users);
 //        $paginator = $this->setPage($request,$users,$prePage,$total);
 //        dd($paginator);
 //        $data =$paginator->toArray()['data'];
 
-
+        $test          = new LaravelTest();
+        $users=$test->getData();
 //        $users = 'ererere';
 //        session(['key' => $users]);
-//        return view('Home.index')->with('list', $users);
 //
 //        $users_ucenyer = DB::connection('mysql_ucenter')->select('select * from uc_user where id=3', [1]);
 
-        return view('Home.index')->with('lists', $users);
+        return view('Home.index')->with('data', $users);
     }
 
     public function test()

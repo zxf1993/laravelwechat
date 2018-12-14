@@ -1,1 +1,1 @@
-{{$lists->links('common.pagination')}}
+{{$data->links('common.pagination')}}
